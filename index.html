@@ -1,8 +1,19 @@
 <html>
-  <h1>我叫周阳阳</h1>
-     <p>我的学号是<span id=" studentnumber">18002090241</span>
-       
+<body>
+  <h1>我叫<span id="maname"></span></h1>
+     <p>我的学号是<span id=" studentnumber"></span>
+     </p> 
       <img src="1.jpg">
-     </p>
+      <script src="jquery-3.4.1.js"></script>
+       <script>
+           $(function(){
+             $.get("./data/json",function(result){
+               $("#maname").text(result.maname);
+               $("#mynumber".text(result.mynumber));
+             });
+           })
+       
+       </script>
+    </body>
 </html>
 
