@@ -1,19 +1,55 @@
 <html>
 <body>
-  <h1>我叫<span id="maname"></span></h1>
-     <p>我的学号是<span id=" studentnumber"></span>
-     </p> 
-      <img src="1.jpg">
-      <script src="jquery-3.4.1.js"></script>
-       <script>
-           $(function(){
-             $.get("./data.json",function(result){
-               $("#maname").text(result.maname);
-               $("#mynumber".text(result.mynumber));
-             });
-           })
-       
-       </script>
-    </body>
-</html>
+<h1>我叫<span id="myname"></span></h1>
 
+    <p>我的学号是<span id="mynumber"></span>
+    </p>
+    <a id="alogin" href="login.html">去登录</a>
+    <a id="alogout" href="#">去注销</a>
+
+    <input type="text">
+    <button>添加</button>
+
+    <script src="jquery-3.4.1.js"></script>
+    <script>
+        $(function(){
+
+            var callback=function (result){
+                if(!result || !result.myname){
+                    $("#alogout").hide();
+                }else{
+                    $("#myname").text(result.myname);
+                    $("#mynumber").text(result.mynumber);
+                    $("#alogin").hide();
+                }
+             }
+             $.ajax({
+                type:"POST",
+                xhrFields: {
+                        withCredentials: true
+                },
+                url:"http://127.0.0.1:8585/userinfo",
+                contentType:"application/json",
+                success:callback
+             });
+
+            $("#alogout").click(function(){
+                $.ajax({
+                type:"POST",
+                xhrFields: {
+                        withCredentials: true
+                },
+                url:"http://127.0.0.1:8585/logout",
+                success:function(){
+                    location.href="index.html";
+                }
+             });
+            });
+
+   
+        })
+
+
+    </script>
+</body>
+</html>
